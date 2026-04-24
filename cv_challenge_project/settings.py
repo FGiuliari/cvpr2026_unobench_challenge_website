@@ -145,6 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
     #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     # },
 ]
+ACCOUNT_SIGNUP_FIELDS = [ 'email*','username*', 'password1*', 'password2*']
 
 
 # Internationalization
@@ -173,3 +174,5 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -1,70 +1,206 @@
-<!DOCTYPE html>
+{% load static %}
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Challenge</title>
-    <!-- Bootstrap CSS for basic styling, can add custom CSS later -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Django Bootstrap App{% endblock %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            padding-top: 5rem;
-            background-color: #ff0000;
+      .easy {
+        background-color: #A1EEBD !important;
+      }
+
+      .medium {
+        background-color: #F6F7C4 !important;
+      }
+
+      .hard {
+        background-color: #F6D6D6 !important;
+      }
+
+      .background-filter::after {
+        -webkit-backdrop-filter: blur(4px); /* Use for Safari 9+, Edge 17+ (not a mistake) and iOS Safari 9.2+ */
+        backdrop-filter: blur(4px); /* Supported in all major browsers */
+
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%; height: 100%;
+        top: 0;
+      }
+
+      .background-filter {
+        position: relative;
+      }
+      .background {
+        background: url({% static "images/bg.jpg" %});
+        background-position: center top;
+        background-size: 100% auto;
+        <!-- backdrop-filter: blur(10px); -->
+      }
+      .u-non-blurred {
+        position: relative;
+        z-index: 1;
+
+        /* For text decoration, not mandatory */
+      }
+      /* Offset for fixed navbar */
+      body {
+        min-height: 100vh;
+        padding-top: 70px;
+      }
+
+      /* Central container: Full screen on mobile, limited on desktop */
+      .central-card {
+        min-height: calc(100vh - 70px);
+        background: white;
+        padding: 2rem;
+      }
+
+      @media (min-width: 576px) {
+        .central-card {
+          min-height: auto;
+          border-radius: 1rem;
+          box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+          margin-top: 2rem;
+          margin-bottom: 2rem;
         }
+
+        .challenge-card-bg {
+          background-color: #f7f7f7;
+        }
+      }
     </style>
-</head>
+  </head>
+  <body class="background background-filter">
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="{% url 'home' %}"
+          >UnoBench Challenge</a
+        >
 
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'leaderboard' %}">UnoGrasp Challenge</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'submit' %}">Submit Result</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_submissions' %}">My Submissions</a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <div class="d-flex text-light">
-                    {% if user.is_authenticated %}
-                    <span class="navbar-text me-3">Logged in as {{ user.username }}</span>
-                    <form method="post" action="{% url 'account_logout' %}">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-light" type="submit">Logout</button>
-                    </form>
-                    {% else %}
-                    <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
-                    {% endif %}
-                </div>
-            </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.resolver_match.url_name == 'home' %}active fw-bold text-primary{% endif %}"
+                href="{% url 'home' %}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.resolver_match.url_name == 'challenge_1' %}active fw-bold text-primary{% endif %}"
+                href="{% url 'challenge_1' %}"
+                >Challenge 1</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.resolver_match.url_name == 'challenge_2' %}active fw-bold text-primary{% endif %}"
+                href="{% url 'challenge_2' %}"
+                >Challenge 2</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.resolver_match.url_name == 'submit' %}active fw-bold text-primary{% endif %}"
+                href="{% url 'submit_results' %}"
+                >Submit Results</a
+              >
+            </li>
+
+            {% if user.is_authenticated %}
+
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.resolver_match.url_name == 'my_submissions' %}active fw-bold text-primary{% endif %}"
+                href="{% url 'my_submissions' %}"
+                >My Submissions</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+
+          <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                {{ user.username }}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                <li>
+                  <a class="dropdown-item" href="{% url 'submit_results' %}"
+                    >Submit Results</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'account_email' %}"
+                    >Edit Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'my_submissions' %}"
+                    >Edit Submissions</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <form
+                    method="post"
+                    action="{% url 'account_logout' %}"
+                    class="px-3"
+                  >
+                    {% csrf_token %}
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-outline-danger w-100"
+                    >
+                      Logout
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="btn btn-primary btn-sm px-4"
+                href="{% url 'account_login' %}"
+                >Log In</a
+              >
+            </li>
+            {% endif %}
+          </ul>
         </div>
+      </div>
     </nav>
-    <main class="container">
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor %}
-        {% endif %}
 
-        {% block content %}{% endblock %}
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <div class="container d-flex justify-content-center u-non-blurred">
+      <div class="col-lg central-card">{% block content %} {% endblock %}</div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Submit Challenge Results</h3>
+            </div>
+            <div class="card-body">
+              {% if messages %}
+                  {% for message in messages %}
+                  <div{% if message.tags == "error" %} class=" p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3"{% endif %}>{{ message }}</div>
+                  {% endfor %}
+              {% endif %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="challenge_type" class="form-label">Which challenge?</label>
+                      <select class="form-select" id="challenge_type" name="challenge_type" aria-label="Default select example" required>
+                        <option value="" disabled selected hidden>Please Choose...</option>
+                        <option value="1">challenge 1</option>
+                        <option value="2">challenge 2</option>
+                      </select>
+                      <br>
+
+                    <div class="mb-3">
+                        <label for="result_json" class="form-label">Upload JSONL Result File</label>
+                        <input class="form-control" type="file" id="result_json" name="result_json" accept=".jsonl" >
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="skip_upload" name="skip_upload" >
+                        <label class="form-check-label" for="skip_upload">Skip Evaluation (DEBUG)</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit to Evaluate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

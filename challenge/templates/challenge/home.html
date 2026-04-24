@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="font-bold text-center text-xl">Welcome to the UnoGrasp Challenge</h1>
+
+<div>
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla finibus, lorem vitae euismod tincidunt, ex massa imperdiet odio, sed pharetra eros mi in quam. Quisque sit amet velit vel augue elementum lacinia. Phasellus posuere, nisl vel vestibulum eleifend, massa nisi consequat ligula, at pulvinar ipsum eros eget nunc. Sed lorem enim, tincidunt at neque et, tristique hendrerit ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consequat purus non pharetra hendrerit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris et orci ornare, posuere nulla nec, vestibulum nisl. Sed et metus dui. Vestibulum posuere a quam eget euismod. Maecenas interdum tellus eu libero vehicula, sit amet pretium dui tincidunt. Donec sem turpis, molestie non venenatis vel, tempor eget ipsum.
+
+Nulla tincidunt, nisi id rhoncus gravida, sem dolor interdum urna, a blandit tortor ante ac nisi. Nullam venenatis mi eget odio scelerisque finibus. Nunc et ipsum vel urna tincidunt tempor eget sed urna. Sed pellentesque consectetur enim in feugiat. Morbi sodales sapien tortor, et vestibulum ex suscipit quis. Sed venenatis elit vel diam egestas aliquet. Sed urna augue, tempor ac lacus vel, efficitur scelerisque ipsum. Nunc id vulputate sem. Nullam id tristique dolor.
+
+Donec sodales eu ipsum sit amet finibus. Proin varius tellus a eros congue, sed rutrum sem venenatis. Sed pulvinar neque diam. Nam lobortis commodo libero, nec mollis nibh dignissim id. Suspendisse dictum lectus sit amet quam pretium sodales. Suspendisse gravida dolor ante, non elementum nunc scelerisque vitae. Sed egestas erat vitae ante dictum convallis. Etiam placerat maximus gravida.
+
+Nulla ac malesuada sem. Nullam eget auctor elit. Phasellus metus nunc, fermentum a est in, rhoncus pellentesque purus. Pellentesque aliquam accumsan orci, malesuada luctus ante luctus ut. Sed tempus, ipsum semper cursus lacinia, dolor orci sagittis nunc, et sollicitudin erat eros non metus. Morbi pretium, urna vel suscipit commodo, mi ex consequat purus, quis mattis eros sem vel quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum faucibus varius nibh, dictum tempus orci congue ac. Nullam sodales, dui a dignissim porttitor, quam metus imperdiet nisi, posuere tempus nibh est in mauris. Vestibulum aliquam dui in nunc pellentesque tincidunt. Integer ultricies mi id massa auctor tincidunt. Aenean sed tortor volutpat quam luctus efficitur nec nec dui. Nam id metus in erat finibus dapibus. Maecenas metus odio, facilisis at accumsan vitae, tempus vitae lacus. Fusce eu metus est. Nam aliquam augue in condimentum dignissim.
+
+Suspendisse nec dolor dui. Ut sed porttitor dui. Donec in turpis lectus. Nullam nec sem odio. Suspendisse commodo elit odio, at aliquam ligula porttitor ut. Fusce sit amet orci tellus. Mauris aliquet libero et arcu vehicula, nec consequat lacus volutpat. Aliquam placerat turpis eu semper placerat. Vivamus eu est pellentesque, tristique lorem et, convallis metus. Proin non dolor quis leo placerat gravida. Phasellus vel ex nec enim accumsan eleifend. Etiam luctus blandit tortor sit amet semper. Suspendisse potenti. Nunc volutpat nec orci eu imperdiet. Sed tincidunt nulla at arcu dapibus, in tempor elit laoreet. 
+  </div>
+
+  <hr>
+
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Pick Your Challenge</h2>
+          <p class="text-muted">Two challenges, one winner. Select below.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <div class="card h-100 border-0 shadow-sm p-3 challenge-card-bg">
+              <div class="card-body d-flex flex-column">
+                <h4 class="card-title fw-bold text-primary">Challenge 1</h4>
+                <p class="card-text text-muted">
+                  Test your foundational knowledge in this introductory
+                  challenge.
+                </p>
+                <a href="{% url 'challenge_1'%}" class="btn btn-primary mt-auto"
+                  >Start Challenge 1</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card h-100 border-0 shadow-sm p-3 challenge-card-bg">
+              <div class="card-body d-flex flex-column">
+                <h4 class="card-title fw-bold text-success">Challenge 2</h4>
+                <p class="card-text text-muted">
+                  A much harder test for those who have mastered the basics.
+                </p>
+                <a href="{% url 'challenge_2'%}" class="btn btn-success mt-auto "
+                  >Start Challenge 2</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}

@@ -5,23 +5,26 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>My Submissions</h1>
-            <a href="{% url 'submit' %}" class="btn btn-success">New Submission</a>
+            <a href="{% url 'submit_results' %}" class="btn btn-success">New Submission</a>
         </div>
         <hr>
 
         <table class="table table-bordered">
             <thead class="bg-light">
                 <tr>
+                    <th>Challenge type</th>
                     <th>Score</th>
                     <th>Status</th>
                     <th>Time Submitted</th>
                     <th>Visibility</th>
                     <th>Action</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for submission in submissions %}
                 <tr>
+                    <td>{{ submission.challenge_type }}</td>
                     <td>
                         {% if submission.score is not None %}
                             {{ submission.score|floatformat:4 }}
@@ -37,7 +40,7 @@
                         {% elif submission.status == 'EVALUATING' %}
                             <span class="badge bg-warning text-dark">Evaluating...</span>
                         {% else %}
-                            <span class="badge bg-secondary">Pending</span>
+                        <span class="badge bg-secondary">{{ submission.status }}</span>
                         {% endif %}
                     </td>
                     <td>{{ submission.created_at|date:"M d, Y H:i" }}</td>
@@ -58,6 +61,10 @@
                             {% endif %}
                         </form>
                     </td>
+                    <td>
+                      <form method="post" action="{% url 'delete_submission' submission.id %}" style="display: inline;">
+                        {%csrf_token%}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                 </tr>
                 {% empty %}
                 <tr>
